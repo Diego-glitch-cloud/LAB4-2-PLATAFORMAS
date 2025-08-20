@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
             Laboratorio4_2Theme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
                     ////////////////////////////
-                    ////////
+                    ////////prueba
                 }
             }
         }
