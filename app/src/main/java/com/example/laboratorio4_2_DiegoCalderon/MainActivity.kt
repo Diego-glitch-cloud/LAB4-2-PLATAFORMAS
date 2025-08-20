@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -35,62 +36,55 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     var receta by remember { mutableStateOf("") }
                     var url by remember { mutableStateOf("") }
-                    val listaRecetas = remember { mutableStateListOf<String>() }
+                    val listaRecetas = remember { mutableStateListOf<Receta>() }
 
                     Column(
                         modifier = Modifier
                             .padding(innerPadding)
                             .padding(16.dp)
-                            .fillMaxSize()
+                            .fillMaxSize(),
                     ) {
                         Row(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            TextField(
-                                value = receta,
-                                onValueChange = { receta = it },
-                                label = { Text("Nombre de la Receta") }
-                            )
-                            TextField(
-                                value = url,
-                                onValueChange = { url = it },
-                                label = { Text("URL de la imagen") }
-                            )
-                        }
+                            Column(
+                                modifier = Modifier.weight(1f),
+                            ){
+                                TextField(
+                                    value = receta,
+                                    onValueChange = { receta = it },
+                                    label = { Text("Nombre de la Receta") }
+                                )
+                                TextField(
+                                    value = url,
+                                    onValueChange = { url = it },
+                                    label = { Text("URL de la imagen") }
+                                )
+                            }
+                            Button(
+                                onClick = {
 
-                        Button(
-                            onClick = {
-                                // TODO tomar los valores de receta y url
-                                // Agregarlos a listaRecetas
-                                // Borrar el texto de los campos para que se puedan ingresar nuevos
+                                    if (receta.isNotBlank() && !listaRecetas.contains(receta) && url.isNotBlank()) { // Verificación
+                                        listaRecetas.add(receta)
 
-                                if (receta.isNotBlank() && !listaRecetas.contains(receta)) { // Verificación
-                                    listaRecetas.add(receta)
-
-                                    // Se limpian los campos
-                                    receta = ""
-                                    url = ""
-                                }
-                            },
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Green) // Boton Verde
-                        ) {
-                            Text("Agregar receta")
-                        }
-
-                        Row(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            // Mostrar lazy column
-                            LazyColumn(
-                                modifier = Modifier.fillMaxSize()
+                                        // Se limpian los campos
+                                        receta = ""
+                                        url = ""
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(containerColor = Color.Green) // Boton Verde
                             ) {
-                                items(listaRecetas) { receta -> Text(text = receta) }
+                                Text("Agregar receta")
                             }
                         }
 
-
+                        // Mostrar lazy column
+                        LazyColumn(
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            items(listaRecetas) { receta -> Text(text = receta) }
+                        }
                     }
                 }
             }
