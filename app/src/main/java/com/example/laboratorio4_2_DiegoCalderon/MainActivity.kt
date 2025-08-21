@@ -1,5 +1,8 @@
 package com.example.laboratorio4_2_DiegoCalderon
-
+// Diego Andre Calderón Salazar
+// programación de plataformas móviles
+// Universidad del Valle de Guatemala
+// Laboratorio 4.2
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -118,7 +121,7 @@ class MainActivity : ComponentActivity() {
                 model = receta.imageUrl,
                 contentDescription = "Imagen de la receta ${receta.nombre}",
                 modifier = Modifier.size(300.dp)
-                    .clip(RoundedCornerShape(16.dp))
+                    .clip(RoundedCornerShape(16.dp)) // intente ponerle bordes redondos pero no funcionó :(
             )
             Text(
                 text = receta.nombre,
